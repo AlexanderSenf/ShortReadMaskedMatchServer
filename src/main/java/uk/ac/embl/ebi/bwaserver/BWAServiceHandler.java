@@ -85,7 +85,8 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
         
         // Step 1: Response Type
-        String get = request.headers().get("Accept").toString(); // Response Type
+        //String get = request.headers().get("Accept").toString(); // Response Type
+        String get = "";
 /*
          // Active?
         if (!EgaSecureConfigLogService.keepRunning) {
@@ -137,7 +138,6 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             sendError(ctx, BAD_REQUEST, get); // If the URL is incorrect...
             return;
         }
-        
         // Step 3: Perform Workload (this is why this server exists..)
         JSONObject json = null;
         try {

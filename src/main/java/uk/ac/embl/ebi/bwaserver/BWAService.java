@@ -7,7 +7,7 @@
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed to in writing, software3
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -116,7 +116,7 @@ public class BWAService {
             this.index.close();
         }
     }
-    
+   
     public static void main(String[] args) {
         String p = "9221"; int pi = 9221;
 
@@ -125,9 +125,9 @@ public class BWAService {
             @Override
             public void run() {
                 keepRunning = false;
-//                try {
-//                    mainThread.join();
-//                } catch (InterruptedException ex) {;}
+                //try {
+                //    mainThread.join();
+                //} catch (InterruptedException ex) {;}
 
                 System.out.println("Shutdown!!");
             }
