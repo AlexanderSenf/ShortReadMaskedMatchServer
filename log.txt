@@ -1,0 +1,172 @@
+[[1;34mINFO[m] Error stacktraces are turned on.
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1mBuilding bwaserver 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mbwaserver[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mbwaserver[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 5 source files to /home/asenf/Documents/ShortReadMaskedMatchServer/target/classes
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;33mWARNING[m] COMPILATION WARNING : 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[23,18] sun.nio.ch.FileChannelImpl is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[24,16] sun.misc.Unsafe is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[34,30] sun.misc.Unsafe is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[44,56] sun.misc.Unsafe is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[46,35] sun.misc.Unsafe is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[48,42] sun.nio.ch.FileChannelImpl is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/MMapper.java:[49,44] sun.nio.ch.FileChannelImpl is internal proprietary API and may be removed in a future release
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java: /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java uses or overrides a deprecated API.
+[[1;33mWARNING[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java: Recompile with -Xlint:deprecation for details.
+[[1;34mINFO[m] 9 warnings 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] COMPILATION ERROR : 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[33,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[34,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[57,13] cannot find symbol
+  symbol:   class BwaIndex
+  location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[58,13] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[18,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[35,19] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceInitializer
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[41,34] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceInitializer
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[34,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[35,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[36,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[75,19] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[78,30] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[78,25] cannot find symbol
+  symbol:   class BwaIndex
+  location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[79,23] cannot find symbol
+  symbol:   class BwaMem
+  location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[151,13] cannot find symbol
+  symbol:   class ShortRead
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[151,34] cannot find symbol
+  symbol:   class ShortRead
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[154,13] cannot find symbol
+  symbol:   class AlnRgn
+  location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;34mINFO[m] 17 errors 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time: 1.297 s
+[[1;34mINFO[m] Finished at: 2018-07-28T19:12:28+01:00
+[[1;34mINFO[m] Final Memory: 15M/173M
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.1:compile[m [1m(default-compile)[m on project [36mbwaserver[m: [1;31mCompilation failure[m: Compilation failure: 
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[33,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[34,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[57,13] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaIndex
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[58,13] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[18,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[35,19] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceInitializer
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceInitializer.java:[41,34] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceInitializer
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[34,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[35,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[36,35] package com.github.lindenb.jbwa.jni does not exist
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[75,19] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[78,30] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[78,25] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaIndex
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAService.java:[79,23] cannot find symbol
+[[1;31mERROR[m]   symbol:   class BwaMem
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAService
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[151,13] cannot find symbol
+[[1;31mERROR[m]   symbol:   class ShortRead
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[151,34] cannot find symbol
+[[1;31mERROR[m]   symbol:   class ShortRead
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] /home/asenf/Documents/ShortReadMaskedMatchServer/src/main/java/uk/ac/embl/ebi/bwaserver/BWAServiceHandler.java:[154,13] cannot find symbol
+[[1;31mERROR[m]   symbol:   class AlnRgn
+[[1;31mERROR[m]   location: class uk.ac.embl.ebi.bwaserver.BWAServiceHandler
+[[1;31mERROR[m] -> [1m[Help 1][m
+[1;31morg.apache.maven.lifecycle.LifecycleExecutionException[m: [1;31mFailed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.1:compile[m [1m(default-compile)[m on project [36mbwaserver[m: [1;31mCompilation failure[m[m
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:213[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:154[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:146[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:117[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:81[m)
+    [1mat[m org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build ([1mSingleThreadedBuilder.java:51[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleStarter.execute ([1mLifecycleStarter.java:128[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:309[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:194[m)
+    [1mat[m org.apache.maven.DefaultMaven.execute ([1mDefaultMaven.java:107[m)
+    [1mat[m org.apache.maven.cli.MavenCli.execute ([1mMavenCli.java:955[m)
+    [1mat[m org.apache.maven.cli.MavenCli.doMain ([1mMavenCli.java:290[m)
+    [1mat[m org.apache.maven.cli.MavenCli.main ([1mMavenCli.java:194[m)
+    [1mat[m sun.reflect.NativeMethodAccessorImpl.invoke0 ([1mNative Method[m)
+    [1mat[m sun.reflect.NativeMethodAccessorImpl.invoke ([1mNativeMethodAccessorImpl.java:62[m)
+    [1mat[m sun.reflect.DelegatingMethodAccessorImpl.invoke ([1mDelegatingMethodAccessorImpl.java:43[m)
+    [1mat[m java.lang.reflect.Method.invoke ([1mMethod.java:498[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced ([1mLauncher.java:289[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launch ([1mLauncher.java:229[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode ([1mLauncher.java:415[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.main ([1mLauncher.java:356[m)
+[1mCaused by[m: org.apache.maven.plugin.compiler.CompilationFailureException: [1;31mCompilation failure[m
+    [1mat[m org.apache.maven.plugin.compiler.AbstractCompilerMojo.execute ([1mAbstractCompilerMojo.java:858[m)
+    [1mat[m org.apache.maven.plugin.compiler.CompilerMojo.execute ([1mCompilerMojo.java:129[m)
+    [1mat[m org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo ([1mDefaultBuildPluginManager.java:134[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:208[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:154[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:146[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:117[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:81[m)
+    [1mat[m org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build ([1mSingleThreadedBuilder.java:51[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleStarter.execute ([1mLifecycleStarter.java:128[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:309[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:194[m)
+    [1mat[m org.apache.maven.DefaultMaven.execute ([1mDefaultMaven.java:107[m)
+    [1mat[m org.apache.maven.cli.MavenCli.execute ([1mMavenCli.java:955[m)
+    [1mat[m org.apache.maven.cli.MavenCli.doMain ([1mMavenCli.java:290[m)
+    [1mat[m org.apache.maven.cli.MavenCli.main ([1mMavenCli.java:194[m)
+    [1mat[m sun.reflect.NativeMethodAccessorImpl.invoke0 ([1mNative Method[m)
+    [1mat[m sun.reflect.NativeMethodAccessorImpl.invoke ([1mNativeMethodAccessorImpl.java:62[m)
+    [1mat[m sun.reflect.DelegatingMethodAccessorImpl.invoke ([1mDelegatingMethodAccessorImpl.java:43[m)
+    [1mat[m java.lang.reflect.Method.invoke ([1mMethod.java:498[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced ([1mLauncher.java:289[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launch ([1mLauncher.java:229[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode ([1mLauncher.java:415[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.main ([1mLauncher.java:356[m)
+[[1;31mERROR[m] 
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
