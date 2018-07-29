@@ -9,8 +9,13 @@ EXPERIMENTAL ALPHA VERSION
 This project depends on BWA (https://github.com/lh3/bwa, to generate the index files) and JBWA (https://github.com/lindenb/jbwa, to provide Java JNI mappings for BWA).
 This repository comes with pre-compiled binaries for Linux.
 
+`cd ShortReadMaskedMatchServer`
+
 The JBWA project provides a library named `jbwa.jar`. This file is provided pre-compiled in the /lib directory (the Maven version does not work for me)
+`mvn deploy:deploy-file -Durl=file:///$HOME/.m2/repository -Dfile=lib/jbwa.jar -DgroupId=com.github.lindenb -DartifactId=jbwa -Dpackaging=jar -Dversion=1.0.1`
+
 The JBWA project provides a file named `libbwajni.so` which is required to run the server. This file must be in the in the `java.library.path`, or it must be specified via `-Djava.library.path={path}` upon starting the server (see example below).
+I like to copy that file into a new directory `/usr/lib/jni`.
 
 The server is then compiled using `mvn package` and be placed in the `target/` directory. A precompiled executable jar file is already in that directory, which should work on all target platforms.
 

@@ -24,9 +24,7 @@
         <dependency>
             <groupId>com.github.lindenb</groupId>
             <artifactId>jbwa</artifactId>
-            <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/jbwa-1.0.0.jar</systemPath>
+            <version>1.0.1</version>
         </dependency>        
         <dependency>
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
