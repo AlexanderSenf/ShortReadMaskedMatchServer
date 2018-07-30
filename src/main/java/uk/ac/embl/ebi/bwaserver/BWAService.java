@@ -82,10 +82,18 @@ public class BWAService {
             Logger.getLogger(BWAService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        long maskSize = 1024L*1024L*1024L*2L;  // 2GB
+        // Check for existing Mask file
+        long maskSize = 1024L*1024L*1024L*2L;  // 2GB - random default mask size
+        File maskFile = new File(maskPath);
+        boolean existing = false;
+        if (maskFile.exists()) {
+            System.out.println("Existing Mask File is specified.");
+            maskSize = maskFile.length();
+            existing = true;
+        }
         System.out.println("Declaring Mask File of size " + maskSize + " bytes.");
         try {
-            mask = new MMapper(maskPath, maskSize);
+            mask = new MMapper(maskPath, maskSize, existing);
         } catch (Exception ex) {
             Logger.getLogger(BWAService.class.getName()).log(Level.SEVERE, null, ex);
         }

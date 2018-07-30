@@ -121,6 +121,9 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             int idx = pair.indexOf("=");
             parameters.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
         }
+        
+        // Verification Function: 
+        long testPosition = -1;
 
         // Process URL: get request path
         String function = "";
@@ -130,8 +133,13 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             String t = token.nextToken();
             
             // v1 / proc ? seq=[...]
+            // v1 / mask ? pos=[...]
             assert(t.equalsIgnoreCase("v1"));
             t = token.nextToken();
+            // Separate function - specify mask position, rather than map it by sequence
+            if (t.equalsIgnoreCase("mask")) {
+                testPosition = Long.parseLong(parameters.get("pos"));
+            }
             assert(t.equalsIgnoreCase("proc"));
             
         } catch (Throwable t) {
@@ -143,18 +151,21 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
         try {
             json = new JSONObject();
             
-            // Query Sequence --> Short Read
-            String seq = parameters.get("seq");
-            byte[] qual = new byte[seq.length()];
-            Arrays.fill(qual, (byte)20);
-            //ShortRead read = new ShortRead("query", seq.getBytes(), new byte[seq.length()]);
-            ShortRead read = new ShortRead("query", seq.getBytes(), qual);
-
-            // Alignment(s)
-            AlnRgn[] align = mem.align(read);
+            AlnRgn[] align = null;
+            if (testPosition==-1) {
+                // Query Sequence --> Short Read
+                String seq = parameters.get("seq");
+                byte[] qual = new byte[seq.length()];
+                Arrays.fill(qual, (byte)20);
+                //ShortRead read = new ShortRead("query", seq.getBytes(), new byte[seq.length()]);
+                ShortRead read = new ShortRead("query", seq.getBytes(), qual);
             
-            if (align.length > 0) {
-                long position = align[0].getPos();
+                // Alignment(s)
+                align = mem.align(read);
+            }
+            
+            if (testPosition >= 0 || align.length > 0) {
+                long position = (align!=null)?align[0].getPos():testPosition; // Mask Index for Match
 
                 int maskPos = (int) (position / 2); // Assuming 1/2 byte per position
                 int offset = (int) (position % 2);
@@ -166,9 +177,11 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
                 int low_bits = val[0]&15;
 
                 json.append("Pos", position);
-                json.append("MaskVal", (offset==0?high_bits:low_bits));
+                //json.append("MaskVal", (offset==0?high_bits:low_bits));
+                json.append("MaskValForward", low_bits);
+                json.append("MaskValReverse", high_bits);
             } else {
-                json.append("Error", "No Alignment Found.");                
+                json.append("Error", "No Alignment Found. (and no mask position specified.)");                
             }
             // DEMO: Return alignment
             //for (int i=0; i<align.length; i++) {

@@ -34,9 +34,16 @@ There are 4 possible options:
 
 # Queries
 
-The only URL currently availble is '/v1/proc' ("proceed - yes or no"). The sequence to me mapped is provided a query parameter 'seq'. For example:
+The only two URLs currently availble: 
+(1) '/v1/proc' ("proceed - yes or no"). The sequence to me mapped is provided a query parameter 'seq'. For example:
 
 `curl http://localhost:9221/v1/proc?seq=CTCTATTATTAATACTTCTTTTGAAGCTGCAGTTGTTGCTTCTACTTCAACATTAGAATTAATGTGTA`
 
-This curretly returns a JSON response: (for example) `{"Pos":[120462618],"MaskVal":[0]}`
+This curretly returns a JSON response: (for example) `{"Pos":[120462618],"MaskValForward":[0],"MaskValReverse":[0]}`
 This lists the alignment position, and the mask value at that position.
+
+(2) '/v1/mask' (just for testing):
+
+`curl http://localhost:9221/v1/mask?pos=100`
+
+This returns the two 4-but values of the mask at the specified position. Useful for testing if the server reads the mask file correctly.

@@ -38,6 +38,7 @@ public class MMapper {
 
 	private long addr, size;
 	private final String loc;
+        private final boolean existing;
 
 	static {
 		try {
@@ -69,7 +70,8 @@ public class MMapper {
 	//Given that the location and size have been set, map that location
 	//for the given length and set this.addr to the returned offset
 	private void mapAndSetOffset() throws Exception{
-		final RandomAccessFile backingFile = new RandomAccessFile(this.loc, "rw");
+                String mode = (this.existing)?"r":"rw";
+		final RandomAccessFile backingFile = new RandomAccessFile(this.loc, mode);
 		backingFile.setLength(this.size);
 
 		final FileChannel ch = backingFile.getChannel();
@@ -79,9 +81,10 @@ public class MMapper {
 		backingFile.close();
 	}
 
-	public MMapper(final String loc, long len) throws Exception {
+	public MMapper(final String loc, long len, boolean existing) throws Exception {
 		this.loc = loc;
 		this.size = roundTo4096(len);
+                this.existing = existing;
 		mapAndSetOffset();
 	}
 
