@@ -15,7 +15,7 @@ The JBWA project provides a library named `jbwa.jar`. This file is provided pre-
 `mvn deploy:deploy-file -Durl=file:///$HOME/.m2/repository -Dfile=lib/jbwa.jar -DgroupId=com.github.lindenb -DartifactId=jbwa -Dpackaging=jar -Dversion=1.0.1`
 
 The JBWA project provides a file named `libbwajni.so` which is required to run the server. This file must be in the in the `java.library.path`, or it must be specified via `-Djava.library.path={path}` upon starting the server (see example below).
-I like to copy that file into a new directory `/usr/lib/jni`.
+I like to copy that file into a new directory `/usr/lib/jni` then the `-Djava.library.path` parameter is not necessary.
 
 The server is then compiled using `mvn package` and be placed in the `target/` directory. A precompiled executable jar file is already in that directory, which should work on all target platforms.
 
@@ -35,6 +35,7 @@ There are 4 possible options:
 # Queries
 
 The only two URLs currently availble: 
+
 (1) '/v1/proc' ("proceed - yes or no"). The sequence to me mapped is provided a query parameter 'seq'. For example:
 
 `curl http://localhost:9221/v1/proc?seq=CTCTATTATTAATACTTCTTTTGAAGCTGCAGTTGTTGCTTCTACTTCAACATTAGAATTAATGTGTA`
@@ -46,4 +47,4 @@ This lists the alignment position, and the mask value at that position.
 
 `curl http://localhost:9221/v1/mask?pos=100`
 
-This returns the two 4-but values of the mask at the specified position. Useful for testing if the server reads the mask file correctly.
+This returns the two 4-byte values of the mask at the specified position. Useful for testing if the server reads the mask file correctly.
