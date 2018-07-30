@@ -167,8 +167,9 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             if (testPosition >= 0 || align.length > 0) {
                 long position = (align!=null)?align[0].getPos():testPosition; // Mask Index for Match
 
-                int maskPos = (int) (position / 2); // Assuming 1/2 byte per position
-                int offset = (int) (position % 2);
+                //int maskPos = (int) (position / 2); // Assuming 1/2 byte per position
+                //int offset = (int) (position % 2);
+                int maskPos = (int) position; // Assuming 1/2 byte per position, forward and reverse in the same file
 
                 byte[] val = new byte[1];
                 this.mask.getBytes(position, val);
