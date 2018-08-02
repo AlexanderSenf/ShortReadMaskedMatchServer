@@ -140,7 +140,7 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             if (t.equalsIgnoreCase("mask")) {
                 testPosition = Long.parseLong(parameters.get("pos"));
             }
-            assert(t.equalsIgnoreCase("proc"));
+            //assert(t.equalsIgnoreCase("proc"));
             
         } catch (Throwable t) {
             sendError(ctx, BAD_REQUEST, get); // If the URL is incorrect...
