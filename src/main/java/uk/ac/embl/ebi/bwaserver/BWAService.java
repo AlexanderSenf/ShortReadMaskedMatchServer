@@ -92,7 +92,7 @@ public class BWAService {
             existing = true;
         }
         System.out.println("Declaring Mask File of size " + maskSize + " bytes.");
-        try {
+        try {            
             mask = new MMapper(maskPath, maskSize, existing);
         } catch (Exception ex) {
             Logger.getLogger(BWAService.class.getName()).log(Level.SEVERE, null, ex);

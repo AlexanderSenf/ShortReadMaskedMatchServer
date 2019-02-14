@@ -72,7 +72,7 @@ public class MMapper {
 	private void mapAndSetOffset() throws Exception{
                 String mode = (this.existing)?"r":"rw";
 		final RandomAccessFile backingFile = new RandomAccessFile(this.loc, mode);
-		backingFile.setLength(this.size);
+		if (mode.equals("rw")) backingFile.setLength(this.size);
 
 		final FileChannel ch = backingFile.getChannel();
 		this.addr = (long) mmap.invoke(ch, 1, 0L, this.size);
