@@ -35,7 +35,7 @@ This will start the server on port 9221 and create a mask file in the current di
 
 The Docker image generated needs to map external directories for the mask file as well as the index files. It also needs to expose a port to enable access to the server.
 
-The option for mapping diectories is: `-v /host/directory:/container/directory`
+The option for mapping diectories is: `-v /host/directory:/container/directory` <br />
 The option for mapping ports is `-p external_port:container_port`
 
 One example start commant line would be:
@@ -44,15 +44,16 @@ One example start commant line would be:
 
 In this example, the external index and mask directories are simply mapped to `/usr/mask` and `/usr/index`.
 The options specified after the image name are then passed to the startup of the server insie of the Docker container, using paths relative to the container.
+In this example the BWA index used by bwa inside the Docker container is on system path: `/home/asenf/Documents/ecoli/29.AP009048.sequence.fasta`.
 
 # Options
 
 There are 5 possible options:
-'-p'  port (default 9221)
-'-c'  cores (default 4*available system cores)
-'-l'  path&prefix to genome index files
-'-m'  path to mask file(s) (default .)
-'-v'  verbose mode
+'-p'  port (default 9221) <br />
+'-c'  cores (default 4*available system cores) <br />
+'-l'  path&prefix to genome index files <br />
+'-m'  path to mask file(s) (default .) <br />
+'-v'  verbose mode 
 
 # Queries
 
@@ -73,5 +74,7 @@ This returns the two 4-byte values of the mask at the specified position. Useful
 
 # Issues
 
-The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWI index file. The remeby was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
+(1) The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWI index file. The remeby was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
+
+(2) Maven build doesn't work on JDK9 at the moment.
 
