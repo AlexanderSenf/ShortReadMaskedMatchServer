@@ -1,4 +1,5 @@
-FROM openjdk:jre-alpine
+#FROM openjdk:jre-alpine
+FROM openjdk:8
 VOLUME /tmp
 ARG JAR_FILE
 

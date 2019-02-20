@@ -4,6 +4,8 @@ Align a short read against an indexed reference genome and process alignment pos
 
 EXPERIMENTAL ALPHA VERSION
 
+Currently requires Java 8 to build the project and Docker image. Pre-build images are available, built on Apline and Java 8.
+
 # Setup
 
 This project depends on BWA (https://github.com/lh3/bwa, to generate the index files) and JBWA (https://github.com/lindenb/jbwa, to provide Java JNI mappings for BWA).
@@ -19,18 +21,38 @@ I like to copy that file into a new directory `/usr/lib/jni` then the `-Djava.li
 
 The server is then compiled using `mvn package` and be placed in the `target/` directory. A precompiled executable jar file is already in that directory, which should work on all target platforms.
 
-# Start
+The maven command automatically generates a Docker image. This requires Docker to be installed; the Docker user should be added (`sudo usermod -aG docker {username}`, then restart), otherwise compile with `sudo mvn package`.
+The docker image is named `uk.ac.ebi/bwaserver`.
+
+# Start Directly
 
 The compiled server can be started:
 `java -Djava.library.path={path to libbwajni.so} -jar bwaserver-1.0-SNAPSHOT.jar -l {path to index}`
 
 This will start the server on port 9221 and create a mask file in the current directory.
 
-There are 4 possible options:
+# Start Docker Image
+
+The Docker image generated needs to map external directories for the mask file as well as the index files. It also needs to expose a port to enable access to the server.
+
+The option for mapping diectories is: `-v /host/directory:/container/directory`
+The option for mapping ports is `-p external_port:container_port`
+
+One example start commant line would be:
+
+`docker run -v /home/asenf/Documents/ecoli/:/usr/index/ -v /home/asenf/Documents/mask/:/usr/mask/ -p 9221:9221 uk.ac.ebi/bwaserver -v -m /usr/mask/mask -l /usr/index/29.AP009048.sequence.fasta`
+
+In this example, the external index and mask directories are simply mapped to `/usr/mask` and `/usr/index`.
+The options specified after the image name are then passed to the startup of the server insie of the Docker container, using paths relative to the container.
+
+# Options
+
+There are 5 possible options:
 '-p'  port (default 9221)
 '-c'  cores (default 4*available system cores)
 '-l'  path&prefix to genome index files
 '-m'  path to mask file(s) (default .)
+'-v'  verbose mode
 
 # Queries
 
@@ -48,3 +70,8 @@ This lists the alignment position, and the mask value at that position.
 `curl http://localhost:9221/v1/mask?pos=100`
 
 This returns the two 4-byte values of the mask at the specified position. Useful for testing if the server reads the mask file correctly.
+
+# Issues
+
+The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWI index file. The remeby was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
+
