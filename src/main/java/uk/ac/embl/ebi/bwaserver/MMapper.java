@@ -23,11 +23,6 @@ import java.nio.channels.FileChannel;
 import sun.nio.ch.FileChannelImpl;
 import sun.misc.Unsafe;
 
-/**
- *
- * @author asenf
- * http://nyeggen.com/post/2014-05-18-memory-mapping->2gb-of-data-in-java/
- */
 @SuppressWarnings("restriction")
 public class MMapper {
 
@@ -38,7 +33,6 @@ public class MMapper {
 
 	private long addr, size;
 	private final String loc;
-        private final boolean existing;
 
 	static {
 		try {
@@ -70,9 +64,8 @@ public class MMapper {
 	//Given that the location and size have been set, map that location
 	//for the given length and set this.addr to the returned offset
 	private void mapAndSetOffset() throws Exception{
-                String mode = (this.existing)?"r":"rw";
-		final RandomAccessFile backingFile = new RandomAccessFile(this.loc, mode);
-		if (mode.equals("rw")) backingFile.setLength(this.size);
+		final RandomAccessFile backingFile = new RandomAccessFile(this.loc, "rw");
+		backingFile.setLength(this.size);
 
 		final FileChannel ch = backingFile.getChannel();
 		this.addr = (long) mmap.invoke(ch, 1, 0L, this.size);
@@ -81,10 +74,9 @@ public class MMapper {
 		backingFile.close();
 	}
 
-	public MMapper(final String loc, long len, boolean existing) throws Exception {
+	public MMapper(final String loc, long len) throws Exception {
 		this.loc = loc;
 		this.size = roundTo4096(len);
-                this.existing = existing;
 		mapAndSetOffset();
 	}
 
