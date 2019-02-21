@@ -23,8 +23,6 @@
  *
  * /proc?seq=[...]              Get yes/no answer (proceed to sequence, or not)
  *
- * POST /mask/                  TODO
- * 
  * /stats/load                  TODO Get CPU load of Server
  * 
  */
@@ -134,13 +132,19 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
             
             // v1 / proc ? seq=[...]
             // v1 / mask ? pos=[...]
+            // v1 / update
             assert(t.equalsIgnoreCase("v1"));
             t = token.nextToken();
             // Separate function - specify mask position, rather than map it by sequence
             if (t.equalsIgnoreCase("mask")) {
                 testPosition = Long.parseLong(parameters.get("pos"));
+            } else if (t.equalsIgnoreCase("update")) { // remap mask file
+                this.mask.remap();
+                
+                // TODO: Specify a new map file
+                
+                return;
             }
-            //assert(t.equalsIgnoreCase("proc"));
             
         } catch (Throwable t) {
             sendError(ctx, BAD_REQUEST, get); // If the URL is incorrect...
@@ -164,30 +168,70 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
                 align = mem.align(read);
             }
             
-            if (testPosition >= 0 || align.length > 0) {
-                long position = (align!=null)?align[0].getPos():testPosition; // Mask Index for Match
+            if (align.length > 0) {
+                
+                // Return Values
+                int hits = align.length;
+                int hits_on_target = 0, hits_off_target = 0;
+                
+                // Process alignment results
+                int responseCode = -1; // -1 = stop | 0 = wait | 1 = yes
+                for (int i=0; i<align.length; i++) {
+                    // Obtain Mask values at match position
+                    long position = align[1].getPos();
+                    byte[] val = new byte[1];
+                    this.mask.getBytes(position, val);
+                    int high_bits = val[0]>>4;
+                    int low_bits = val[0]&15;
+                    
+                    if (high_bits==1 || low_bits==1) { 
+                        responseCode = 1;
+                        hits_on_target++;
+                    } else {
+                        hits_off_target++;
+                    }
+                }
+                
+                json.append("Answer", responseCode);
+                json.append("Hits", hits);
+                json.append("HitsOnTarget", hits_on_target);
+                json.append("HitsOffTarget", hits_off_target);
+                
+                
+            //    long position = align[0].getPos(); // Mask Index for Match
 
-                //int maskPos = (int) (position / 2); // Assuming 1/2 byte per position
-                //int offset = (int) (position % 2);
-                int maskPos = (int) position; // Assuming 1/2 byte per position, forward and reverse in the same file
+            //    byte[] val = new byte[1];
+            //    this.mask.getBytes(position, val);
 
+            //    int high_bits = val[0]>>4;
+            //    int low_bits = val[0]&15;
+
+            //    json.append("Pos", position);
+                //json.append("MaskVal", (offset==0?high_bits:low_bits));
+            //    json.append("MaskValForward", low_bits);
+            //    json.append("MaskValReverse", high_bits);
+                
+                // Number of mapping hits
+            //    json.append("MapHits", align.length);
+                // Chromosome
+            //    json.append("Chromosome", align[0].getChrom());
+                
+                // Answer based on mask
+                // TODO
+                
+            } else if (testPosition >= 0) { // Used to read the mask value at a specified position
                 byte[] val = new byte[1];
-                this.mask.getBytes(position, val);
+                this.mask.getBytes(testPosition, val);
 
                 int high_bits = val[0]>>4;
                 int low_bits = val[0]&15;
 
-                json.append("Pos", position);
-                //json.append("MaskVal", (offset==0?high_bits:low_bits));
+                json.append("Pos", testPosition);
                 json.append("MaskValForward", low_bits);
-                json.append("MaskValReverse", high_bits);
+                json.append("MaskValReverse", high_bits);                
             } else {
                 json.append("Error", "No Alignment Found. (and no mask position specified.)");                
             }
-            // DEMO: Return alignment
-            //for (int i=0; i<align.length; i++) {
-            //    json.append("Align_".concat(String.valueOf(i)), align[i].toString());
-            //}
             
         } catch (Throwable th) {
             sendError(ctx, BAD_REQUEST, get); // If the URL Function is incorrect...

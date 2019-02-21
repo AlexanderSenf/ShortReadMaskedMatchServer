@@ -87,6 +87,10 @@ public class MMapper {
 		this.size = roundTo4096(nLen);
 		mapAndSetOffset();
 	}
+	public void remap() throws Exception{
+		unmmap.invoke(null, addr, this.size);
+		mapAndSetOffset();
+	}
 
 	public int getInt(long pos){
 		return unsafe.getInt(pos + addr);

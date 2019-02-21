@@ -46,9 +46,19 @@ In this example, the external index and mask directories are simply mapped to `/
 The options specified after the image name are then passed to the startup of the server insie of the Docker container, using paths relative to the container.
 In this example the BWA index used by bwa inside the Docker container is on system path: `/home/asenf/Documents/ecoli/29.AP009048.sequence.fasta`.
 
+# Docker Repository
+
+This project is also available is a complete Docker image at https://hub.docker.com/r/alexandersenf/bwaserver. To run the image from here:
+
+`docker pull alexandersenf/bwaserver:firsttry`
+
+The name of the image is `alexandersenf/bwaserver:firsttry` (at the moment). So to start this image: 
+
+`docker run -v /home/asenf/Documents/ecoli/:/usr/index/ -v /home/asenf/Documents/mask/:/usr/mask/ -p 9221:9221 alexandersenf/bwaserver -v -m /usr/mask/mask -l /usr/index/29.AP009048.sequence.fasta`
+
 # Options
 
-There are 5 possible options:
+There are 5 possible options: <br />
 '-p'  port (default 9221) <br />
 '-c'  cores (default 4*available system cores) <br />
 '-l'  path&prefix to genome index files <br />
