@@ -168,7 +168,7 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
                 align = mem.align(read);
             }
             
-            if (align.length > 0) {
+            if (align != null && align.length > 0) {
                 
                 // Return Values
                 int hits = align.length;
@@ -178,7 +178,7 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
                 int responseCode = -1; // -1 = stop | 0 = wait | 1 = yes
                 for (int i=0; i<align.length; i++) {
                     // Obtain Mask values at match position
-                    long position = align[1].getPos();
+                    long position = align[i].getPos();
                     byte[] val = new byte[1];
                     this.mask.getBytes(position, val);
                     int high_bits = val[0]>>4;
@@ -191,7 +191,7 @@ public class BWAServiceHandler extends SimpleChannelInboundHandler<FullHttpReque
                         hits_off_target++;
                     }
                 }
-                
+
                 json.append("Answer", responseCode);
                 json.append("Hits", hits);
                 json.append("HitsOnTarget", hits_on_target);

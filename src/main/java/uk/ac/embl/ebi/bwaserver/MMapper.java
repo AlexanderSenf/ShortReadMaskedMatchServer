@@ -116,4 +116,8 @@ public class MMapper {
 	public void setBytes(long pos, byte[] data){
 		unsafe.copyMemory(data, BYTE_ARRAY_OFFSET, null, pos + addr, data.length);
 	}
+        
+        public String getLoc() {
+            return this.loc;
+        }
 }

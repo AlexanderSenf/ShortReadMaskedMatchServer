@@ -84,7 +84,7 @@ This returns the two 4-byte values of the mask at the specified position. Useful
 
 # Issues
 
-(1) The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWI index file. The remeby was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
+(1) The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWA index file. The remedy was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
 
 (2) Maven build doesn't work on JDK9 at the moment.
 
