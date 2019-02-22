@@ -288,12 +288,13 @@ public class BWAService {
         for (int i=0; i<numIndexEntries; i++) {
             if (toArray[i] > (lenI-seqLen))
                 toArray[i] = (lenI-seqLen-1<0)?0:lenI-seqLen-1;
-            if (toArray[i] < 100)
-                toArray[i] = 100;
+            //if (toArray[i] < 100)
+            //    toArray[i] = 100;
             rafI.seek(toArray[i]);
             byte[] bTmp = new byte[seqLen];
             rafI.readFully(bTmp);
             testIndexEntries[i] = (new String(bTmp)).replaceAll("\n", "");
+            testIndexEntries[i].replaceAll("[^ACTGN]", "");
             //System.out.println("Seq " + testIndexEntries[i]);
         }
         rafI.close();
