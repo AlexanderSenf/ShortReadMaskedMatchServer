@@ -58,12 +58,13 @@ The name of the image is `alexandersenf/bwaserver:firsttry` (at the moment). So 
 
 # Options
 
-There are 5 possible options: <br />
+There are 6 possible options: <br />
 '-p'  port (default 9221) <br />
 '-c'  cores (default 4*available system cores) <br />
 '-l'  path&prefix to genome index files <br />
 '-m'  path to mask file(s) (default .) <br />
-'-v'  verbose mode 
+'-v'  verbose mode  <br />
+'-t'  self-test mode (specify number of threds)
 
 # Queries
 

@@ -24,6 +24,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +46,9 @@ public class ClientRunner implements Runnable {
     
     public ClientRunner(CloseableHttpClient client, String sUrl, 
                         int mode, int testMaskEntry) {
-        this.client = client;
+        this.client = client==null?
+                      client = HttpClientBuilder.create().build():
+                      client;
         this.sUrl = sUrl;
         this.mode = mode;
         

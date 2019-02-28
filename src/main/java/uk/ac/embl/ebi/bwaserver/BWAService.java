@@ -315,7 +315,7 @@ public class BWAService {
 
         // Run Mask Test
         ExecutorService exec = Executors.newFixedThreadPool(this.testThreads);
-        CloseableHttpClient client = HttpClientBuilder.create().build();
+        CloseableHttpClient client = null; //HttpClientBuilder.create().build();
         Future<?>[] submit = new Future<?>[numMaskEntries];
         long maskTotal = System.currentTimeMillis();
         for (int i=0; i<numMaskEntries; i++) {
@@ -352,6 +352,7 @@ public class BWAService {
                     active = true;
             }
         } while (active);        
+        indexTotal = System.currentTimeMillis() - indexTotal;
         System.out.println("Avg Index Call: " + (double)indexTotal/(double)numIndexEntries + " milliseconds. (" + this.testThreads + " treads).");
         
         // Done - End Server
