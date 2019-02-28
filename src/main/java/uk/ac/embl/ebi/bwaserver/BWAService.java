@@ -40,6 +40,8 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.stream.LongStream;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -77,10 +79,12 @@ public class BWAService {
 
     // Test Mode Indocator
     private boolean testMe = false;
+    private int testThreads;
     private String indexPath;
     
     public BWAService(int port, int cores, String indexPath, String maskPath, 
-                      boolean verbose, boolean testmode) throws IOException {
+                      boolean verbose, boolean testmode,
+                      int testThreads) throws IOException {
         BWAService.port = port;
 
         // Executors
@@ -123,6 +127,7 @@ public class BWAService {
         System.out.println("Setting up Mask File. Done");        
         
         this.testMe = testmode;
+        this.testThreads = testThreads;
     }
     
     public void run() throws Exception {
@@ -175,6 +180,7 @@ public class BWAService {
         String maskPath = null;
         boolean verbose = false;
         boolean testmode = false;
+        int testThreads = 1;
 
         Options options = new Options();
 
@@ -183,7 +189,7 @@ public class BWAService {
         options.addOption("l", true, "index path");
         options.addOption("m", true, "mask path");
         options.addOption("v", false, "verbose");
-        options.addOption("t", false, "test");
+        options.addOption("t", true, "test");
         
         CommandLineParser parser = new BasicParser();
         try {
@@ -195,7 +201,8 @@ public class BWAService {
             }            
             if (cmd.hasOption("t")) {
                 testmode = true;
-                System.out.println("Test mode selected.");
+                testThreads = Integer.parseInt(System.getProperty("t"));
+                System.out.println("Test mode selected: " + testThreads + " threads.");
             }            
             
             if (cmd.hasOption("p")) {
@@ -245,7 +252,7 @@ public class BWAService {
 
         // Start and run the server
         try {
-            new BWAService(pi, cores, indexPath, maskPath, verbose, testmode).run();
+            new BWAService(pi, cores, indexPath, maskPath, verbose, testmode, testThreads).run();
         } catch (Exception ex) {
             Logger.getLogger(BWAService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -282,7 +289,7 @@ public class BWAService {
         int seqLen = 200;
         System.out.println("Reading " + numIndexEntries + " random entries from Index FASTA file.");
         String[] testIndexEntries = new String[numIndexEntries];
-        r = new Random(lenI);
+        r = new Random(lenI);ExecutorService executor = Executors.newFixedThreadPool(10);
         LongStream longsI = r.longs(numIndexEntries, 0, lenI).sorted();
         long[] toArray = longsI.toArray();
         for (int i=0; i<numIndexEntries; i++) {
@@ -302,66 +309,49 @@ public class BWAService {
         rafI.close();
         System.out.println("Reading " + numIndexEntries + " random entries from Index FASTA file. Done");
 
-        // Run Tests
+        // Run Mask Test
+        ExecutorService exec = Executors.newFixedThreadPool(this.testThreads);
         CloseableHttpClient client = HttpClientBuilder.create().build();
-        CloseableHttpResponse response = null;
-        long maskTotal = 0, maskTemp = 0;
+        Future<?>[] submit = new Future<?>[numMaskEntries];
+        long maskTotal = System.currentTimeMillis();
         for (int i=0; i<numMaskEntries; i++) {
-            HttpUriRequest request = new HttpGet("http://localhost:9221/v1/mask?pos=" + testMaskIndices[i]);
-            maskTemp = System.currentTimeMillis();
-            response = client.execute(request);
-            maskTotal += (System.currentTimeMillis() - maskTemp);
-            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-            HashMap map = jsonToMap(json);
+            String sUrl = "http://localhost:9221/v1/mask?pos=" + testMaskIndices[i];
             
-            // Compare REST call with direct File access 
-            int fhb = testMaskEntries[i]>>4;
-            int flb = testMaskEntries[i]&15;
-            
-            if (flb != Integer.parseInt(map.get("MaskValForward").toString()) || 
-                fhb != Integer.parseInt(map.get("MaskValReverse").toString())) {
-                System.out.println("ERROR in MASK File Processing");
-                System.out.println("** file_l_b" + flb + " =?= " + map.get("MaskValForward"));
-                System.out.println("** file_h_b" + fhb + " =?= " + map.get("MaskValReverse"));
-                System.exit(99);
-            }
-
-            response.close();
+            ClientRunner runner = new ClientRunner(client, sUrl, 0, testMaskEntries[i]);
+            submit[i] = exec.submit(runner);
         }
-        System.out.println("Avg Mask Call: " + (double)maskTotal/(double)numMaskEntries + " milliseconds.");
+        boolean active = true;
+        do {
+            active = false;
+            for (int i=0; i<numMaskEntries; i++) {
+                if (!submit[i].isDone())
+                    active = true;
+            }
+        } while (active);
+        maskTotal = System.currentTimeMillis() - maskTotal;
+        System.out.println("Avg Mask Call: " + (double)maskTotal/(double)numMaskEntries + " milliseconds. (" + this.testThreads + " treads).");
         
-        // Match Test
-        long indexTotal = 0, indexTemp = 0;
+        // Run Match Test
+        submit = new Future<?>[numIndexEntries];
+        long indexTotal = System.currentTimeMillis();
         for (int i=0; i<numMaskEntries; i++) {
-            HttpUriRequest request = new HttpGet("http://localhost:9221/v1/proc?seq=" + testIndexEntries[i]);
-            indexTemp = System.currentTimeMillis();
-            response = client.execute(request);
-            indexTotal += (System.currentTimeMillis() - indexTemp);
-            String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-            HashMap map = jsonToMap(json);
+            String sUrl = "http://localhost:9221/v1/proc?seq=" + testIndexEntries[i];
 
-            //System.out.println(map.toString());
-
-            response.close();
+            ClientRunner runner = new ClientRunner(client, sUrl, 0, testMaskEntries[i]);
+            submit[i] = exec.submit(runner);            
         }        
-        System.out.println("Avg Index Call: " + (double)indexTotal/(double)numIndexEntries + " milliseconds.");
+        active = true;
+        do {
+            active = false;
+            for (int i=0; i<numIndexEntries; i++) {
+                if (!submit[i].isDone())
+                    active = true;
+            }
+        } while (active);        
+        System.out.println("Avg Index Call: " + (double)indexTotal/(double)numIndexEntries + " milliseconds. (" + this.testThreads + " treads).");
         
         // Done - End Server
         System.exit(100);
     }
 
-    private static HashMap jsonToMap(String t) throws JSONException {
-
-        HashMap<String, String> map = new HashMap<>();
-        JSONObject jObject = new JSONObject(t);
-        Iterator<?> keys = jObject.keys();
-
-        while( keys.hasNext() ){
-            String key = (String)keys.next();
-            String value = jObject.get(key).toString().substring(1, jObject.get(key).toString().length()-1 );
-            map.put(key, value);
-        }
-
-        return map;
-    }
 }

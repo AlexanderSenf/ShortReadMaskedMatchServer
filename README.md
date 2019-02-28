@@ -82,9 +82,16 @@ This lists the alignment position, and the mask value at that position.
 
 This returns the two 4-byte values of the mask at the specified position. Useful for testing if the server reads the mask file correctly.
 
+(3) '/v1/mask' (just for testing):
+
+`curl http://localhost:9221/v1/update`
+
+This re-maps the mask file. It may be necessary after updating the mask file on disk. (TODO: optionally map a new mask file name via parameter).
+
 # Issues
 
 (1) The preferred Docker base image `openjdk:jre-alpine` procudes a Docker image of size 90MB, but causes an error when loading the BWA index file. The remedy was to switch to the standard `openjdk:8` image, but now the Docker image is 631MB.
 
 (2) Maven build doesn't work on JDK9 at the moment.
 
+(3) Expand self test to be multi-threaded
