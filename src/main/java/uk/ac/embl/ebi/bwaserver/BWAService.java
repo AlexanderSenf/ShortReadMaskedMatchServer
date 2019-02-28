@@ -201,7 +201,11 @@ public class BWAService {
             }            
             if (cmd.hasOption("t")) {
                 testmode = true;
-                testThreads = Integer.parseInt(System.getProperty("t"));
+                testThreads = Integer.parseInt(
+                        (cmd.getOptionValue("t")!=null)?
+                                cmd.getOptionValue("t"):
+                                "1"
+                        );
                 System.out.println("Test mode selected: " + testThreads + " threads.");
             }            
             
@@ -337,7 +341,7 @@ public class BWAService {
         for (int i=0; i<numMaskEntries; i++) {
             String sUrl = "http://localhost:9221/v1/proc?seq=" + testIndexEntries[i];
 
-            ClientRunner runner = new ClientRunner(client, sUrl, 0, testMaskEntries[i]);
+            ClientRunner runner = new ClientRunner(client, sUrl, 1, 0);
             submit[i] = exec.submit(runner);            
         }        
         active = true;
