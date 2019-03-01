@@ -320,10 +320,12 @@ public class BWAService {
         CloseableHttpClient client = null; //HttpClientBuilder.create().build();
         Future<?>[] submit = new Future<?>[numMaskEntries];
         ClientRunner[] processesM = new ClientRunner[numMaskEntries];
+        System.out.println("Preparing Mask Test Processes");
         for (int i=0; i<numMaskEntries; i++) {
             String sUrl = "http://localhost:9221/v1/mask?pos=" + testMaskIndices[i];
             processesM[i] = new ClientRunner(client, sUrl, 1, 0);
         }
+        System.out.println("Running Mask Test");
         long maskTotal = System.currentTimeMillis();
         for (int i=0; i<numMaskEntries; i++) {
             submit[i] = exec.submit(processesM[i]);
@@ -342,10 +344,12 @@ public class BWAService {
         // Run Match Test
         submit = new Future<?>[numIndexEntries];
         ClientRunner[] processes = new ClientRunner[numIndexEntries];
+        System.out.println("Preparing Index Test Processes");
         for (int i=0; i<numMaskEntries; i++) {
             String sUrl = "http://localhost:9221/v1/proc?seq=" + testIndexEntries[i];
             processes[i] = new ClientRunner(client, sUrl, 1, 0);
         }
+        System.out.println("Running Index Test");
         long indexTotal = System.currentTimeMillis();
         for (int i=0; i<numMaskEntries; i++) {
             submit[i] = exec.submit(processes[i]);
