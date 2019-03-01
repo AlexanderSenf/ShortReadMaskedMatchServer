@@ -37,8 +37,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -317,12 +319,14 @@ public class BWAService {
         ExecutorService exec = Executors.newFixedThreadPool(this.testThreads);
         CloseableHttpClient client = null; //HttpClientBuilder.create().build();
         Future<?>[] submit = new Future<?>[numMaskEntries];
-        long maskTotal = System.currentTimeMillis();
+        ClientRunner[] processesM = new ClientRunner[numMaskEntries];
         for (int i=0; i<numMaskEntries; i++) {
             String sUrl = "http://localhost:9221/v1/mask?pos=" + testMaskIndices[i];
-            
-            ClientRunner runner = new ClientRunner(client, sUrl, 0, testMaskEntries[i]);
-            submit[i] = exec.submit(runner);
+            processesM[i] = new ClientRunner(client, sUrl, 1, 0);
+        }
+        long maskTotal = System.currentTimeMillis();
+        for (int i=0; i<numMaskEntries; i++) {
+            submit[i] = exec.submit(processesM[i]);
         }
         boolean active = true;
         do {
@@ -337,13 +341,15 @@ public class BWAService {
         
         // Run Match Test
         submit = new Future<?>[numIndexEntries];
-        long indexTotal = System.currentTimeMillis();
+        ClientRunner[] processes = new ClientRunner[numIndexEntries];
         for (int i=0; i<numMaskEntries; i++) {
             String sUrl = "http://localhost:9221/v1/proc?seq=" + testIndexEntries[i];
-
-            ClientRunner runner = new ClientRunner(client, sUrl, 1, 0);
-            submit[i] = exec.submit(runner);            
-        }        
+            processes[i] = new ClientRunner(client, sUrl, 1, 0);
+        }
+        long indexTotal = System.currentTimeMillis();
+        for (int i=0; i<numMaskEntries; i++) {
+            submit[i] = exec.submit(processes[i]);
+        }
         active = true;
         do {
             active = false;
